@@ -1,0 +1,54 @@
+
+<div class="container row">
+  <form (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="input-field ">
+        <input id="search" type="text" [(ngModel)]="searchParam" name="search" class="validate col m10">
+        <label for="password">Search </label>
+        <button class="waves-effect waves-light btn col m2">Search</button>
+      </div>
+    </div>
+  </form>
+  <div *ngIf="!tableView">
+    <div *ngFor="let album of albums">
+      <div class="col s12 m3">
+        <div class="card">
+          <div class="card-image">
+            <img src="{{album.albumCover}}">
+            <span class="card-title"></span>
+          </div>
+          <div class="card-content">
+            <p class="truncate_3em">{{album.title}}</p>
+            <p><small>{{album.artist}}</small></p>
+            <p><small>{{album.genre}}</small></p>
+            <p><small>{{album.releaseDate}}</small></p>
+          </div>
+          <div class="card-action">
+            <a [routerLink]="['/album', album.id]">{{album.numberOfTracks}} tracks</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="tableView">
+    <table class="highlight">
+      <thead>
+        <tr>
+          <th>Thumbnail</th>
+          <th>Artist</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <span *ngIf="albums.length == 0">No results found for {{searchParam}}</span>
+        <tr *ngFor="let album of albums" (click)="showAlbum()" title="Click To View">
+          <td><img src="{{album.albumCover}}" style="height:50px;width:50px;" /></td>
+          <td class="truncate_20em"><a [routerLink]="['/album', album.id]">{{album.artist}}</a></td>
+          <td>{{album.title}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

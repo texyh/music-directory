@@ -1,0 +1,39 @@
+<div class=" section container">
+    <div class="row" *ngIf="album">
+        <div class="col m5">
+                <img src="{{album.albumCover}}"  style="width:400px; height:300px;"/>
+                <p>{{album.artist}}</p>
+                <p>{{album.title}}</p>
+        </div>
+        <div class="col m7">
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Artist(s)</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let track of album.tracks">
+                        <td>{{track.number}}</td>
+                        <td><a href="{{track.uri}}" target="_blank">{{track.title}}</a></td>
+                        <td><span *ngFor="let artist of track.artist; let i = index">
+                            <span *ngIf="i == track.artist.length - 1">
+                                {{artist}}
+                            </span>
+                            <span *ngIf="i < track.artist.length - 1">
+                                {{artist}}, 
+                            </span>
+                        </span>
+                        </td>
+                        <td>{{track.duration}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
